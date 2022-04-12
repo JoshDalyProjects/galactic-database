@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SpacecraftModel;
 use App\Models\Armament;
 use Illuminate\Support\Facades\Auth;
 
-class SpacecraftController extends Controller
+class ArmamentController extends Controller
 {
-    
     public function store(Request $request) {
         if(Auth::check()){
-        $spacecraft = SpacecraftModel::create($request->all());
+        $armament = Armament::create($request->all());
         return response(['success' => true]);
         } else {
             return response('Unauthorized.');
@@ -20,21 +18,22 @@ class SpacecraftController extends Controller
     }
 
     public function index(Request $request) {
-        return SpacecraftModel::with(array('armaments' => function($query) {
-             $query->select('spacecraft_id','title','qty'); 
-            }))->get();
-    }
+        return Armament::with(array('spacecraft' => function($query) {
+             $query->select('id','name');
+             })
+            )->get();
+        }
 
     public function show($id) {
-        return SpacecraftModel::with(array('armaments' => function($query) {
-             $query->select('spacecraft_id','title','qty'); 
+        return Armament::with(array('spacecraft' => function($query) {
+             $query->select('id','name'); 
             }))->where('id','=',$id)->first();
-    }
+        }
 
     public function update(Request $request, $id) {
         if(Auth::check()){
-        $spacecraft = SpacecraftModel::findOrFail($id);
-        $spacecraft->update($request->all());
+        $armament = Armament::findOrFail($id);
+        $armament->update($request->all());
 
         return response(['success' => true]);
         } else {
@@ -44,8 +43,8 @@ class SpacecraftController extends Controller
 
     public function delete(Request $request, $id) {
         if(Auth::check()){
-        $spacecraft = SpacecraftModel::findOrFail($id);
-        $spacecraft->delete();
+        $armament = Armament::findOrFail($id);
+        $armament->delete();
 
         return response(['success' => true]);
         }

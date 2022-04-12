@@ -22,7 +22,6 @@ class SpacecraftFactory extends Factory
             'class' => 'Spaceship',
             'price' => $this->faker->doubleval,
             'crew' => '10',
-            'armament' => array(),
             'status' => 'Defunct'
         ];
     }

@@ -38,3 +38,15 @@ Route::post('spacecraft', 'SpacecraftController@store');
 Route::patch('spacecraft/{id}', 'SpacecraftController@update');
 // Deletes spacecraft
 Route::delete('spacecraft/{id}', 'SpacecraftController@delete');
+
+
+// Index for armaments
+Route::get('armament', 'ArmamentController@index');
+// Displays information about individual armaments
+Route::get('armament/{id}', 'ArmamentController@show');
+// Creates armaments
+Route::post('armament', 'ArmamentController@store');
+// Updates armaments
+Route::patch('armament/{id}', 'ArmamentController@update');
+// Deletes armaments
+Route::delete('armament/{id}', 'ArmamentController@delete');

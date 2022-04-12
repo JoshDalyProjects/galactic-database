@@ -14,8 +14,6 @@ class SpacecraftModel extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
 
-    protected $casts = ['armament' => 'array'];
-
     protected $fillable = [
         'id',
         'name',
@@ -27,6 +25,10 @@ class SpacecraftModel extends Model
 
     public function getImageAttribute($value) {
         return env('APP_URL') . Storage::url($value);
+    }
+
+    public function armaments() {
+        return $this->hasMany(Armament::class, 'spacecraft_id');
     }
 
 }
